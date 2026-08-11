@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Asuransi - HR Service Plant</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+--blue:#2563eb;
+--green:#10b981;
+--dark:#111827;
+--gray:#6b7280;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body{
+min-height:100vh;
+background:linear-gradient(
+135deg,
+#eff6ff 0%,
+#ecfeff 35%,
+#f0fdf4 70%,
+#ecfdf5 100%
+);
+overflow-x:hidden;
+}
+
+/* Blur Background */
+
+.blur1{
+position:fixed;
+top:-100px;
+right:-100px;
+width:400px;
+height:400px;
+background:#10b981;
+opacity:.25;
+filter:blur(120px);
+z-index:-1;
+}
+
+.blur2{
+position:fixed;
+bottom:-100px;
+left:-100px;
+width:450px;
+height:450px;
+background:#2563eb;
+opacity:.2;
+filter:blur(130px);
+z-index:-1;
+}
+
+/* Navbar */
+
+nav{
+padding:25px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(255,255,255,.7);
+backdrop-filter:blur(20px);
+position:sticky;
+top:0;
+}
+
+.logo{
+font-size:22px;
+font-weight:800;
+color:#111827;
+}
+
+.back-btn{
+text-decoration:none;
+padding:12px 20px;
+border-radius:999px;
+background:white;
+border:1px solid #e5e7eb;
+color:#111827;
+font-weight:600;
+transition:.3s;
+}
+
+.back-btn:hover{
+transform:translateY(-2px);
+}
+
+/* Hero */
+
+.hero{
+padding:80px 8% 50px;
+text-align:center;
+}
+
+.hero h1{
+font-size:56px;
+font-weight:800;
+color:#111827;
+margin-bottom:15px;
+}
+
+.hero p{
+font-size:18px;
+color:#6b7280;
+}
+
+/* Container */
+
+.container{
+max-width:1000px;
+margin:auto;
+padding:20px;
+}
+
+/* Accordion */
+
+.accordion{
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.accordion-item{
+background:rgba(255,255,255,.75);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,.5);
+border-radius:28px;
+overflow:hidden;
+box-shadow:
+0 10px 30px rgba(0,0,0,.05);
+transition:.3s;
+}
+
+.accordion-item:hover{
+transform:translateY(-4px);
+}
+
+.accordion-header{
+width:100%;
+padding:24px 28px;
+border:none;
+background:none;
+cursor:pointer;
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:22px;
+font-weight:700;
+color:#111827;
+}
+
+.icon{
+width:55px;
+height:55px;
+border-radius:18px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(
+135deg,
+#2563eb,
+#10b981
+);
+font-size:24px;
+color:white;
+margin-right:15px;
+}
+
+.header-left{
+display:flex;
+align-items:center;
+}
+
+.arrow{
+transition:.3s;
+font-size:22px;
+}
+
+.active .arrow{
+transform:rotate(180deg);
+}
+
+.accordion-content{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .4s ease;
+}
+
+.accordion-item.active .accordion-content{
+    max-height:650px;
+    overflow-y:auto;
+    padding-right:8px;
+}
+
+/* Scrollbar */
+.accordion-content::-webkit-scrollbar{
+    width:8px;
+}
+
+.accordion-content::-webkit-scrollbar-thumb{
+    background:#cbd5e1;
+    border-radius:10px;
+}
+
+.content-inner{
+padding:0 28px 28px;
+color:#4b5563;
+line-height:1.8;
+}
+
+.sub-header{
+width:100%;
+padding:16px;
+border:none;
+background:white;
+border:1px solid #e5e7eb;
+border-radius:15px;
+display:flex;
+justify-content:space-between;
+font-size:16px;
+font-weight:700;
+cursor:pointer;
+margin-bottom:10px;
+}
+
+
+.sub-content{
+display:none;
+padding:20px;
+background:#fff;
+border:1px solid #e5e7eb;
+border-radius:15px;
+line-height:1.8;
+color:#596579;
+margin-bottom:15px;
+}
+
+
+.sub-content ol{
+padding-left:20px;
+}
+
+
+.sub-content li{
+margin-bottom:12px;
+}
+
+
+.sub-accordion.active .sub-content{
+display:block;
+}
+
+
+
+/* Card isi */
+
+.info-box{
+background:white;
+padding:20px;
+border-radius:20px;
+margin-top:10px;
+border:1px solid #e5e7eb;
+}
+
+.info-box h3{
+margin-bottom:10px;
+color:#111827;
+}
+
+.info-box ul{
+padding-left:20px;
+}
+
+.info-box li{
+margin-bottom:8px;
+}
+
+/* BUTTON FORM */
+
+.btn-form{
+display:inline-flex;
+align-items:center;
+gap:10px;
+padding:14px 28px;
+margin-top:15px;
+background:linear-gradient(135deg,#2563eb,#10b981);
+color:white;
+text-decoration:none;
+font-weight:700;
+border-radius:14px;
+box-shadow:0 10px 25px rgba(37,99,235,.25);
+transition:all .3s ease;
+}
+
+.btn-form:hover{
+transform:translateY(-3px);
+box-shadow:0 15px 35px rgba(37,99,235,.35);
+}
+
+.btn-form:active{
+transform:translateY(0);
+}
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:38px;
+}
+
+.accordion-header{
+font-size:18px;
+
+}
+}
+
+.bpjs-item{
+    margin-bottom:12px;
+}
+
+.bpjs-btn{
+    width:100%;
+    padding:18px 22px;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+    background:#fff;
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:16px;
+    font-weight:600;
+    text-align:left;
+}
+
+.bpjs-content{
+    display:none;
+    padding:20px;
+    border:1px solid #e5e7eb;
+    border-top:none;
+    border-radius:0 0 16px 16px;
+    background:#fafafa;
+}
+
+</style>
+
+</style>
+</head>
+<body>
+
+<div class="blur1"></div>
+<div class="blur2"></div>
+
+<nav>
+<div class="logo">🏥 Asuransi</div>
+
+<a href="home.html" class="back-btn">
+← Kembali
+</a>
+</nav>
+
+<section class="hero">
+<h1>Informasi Asuransi</h1>
+<p>
+Pilih kategori asuransi yang ingin Anda lihat.
+</p>
+</section>
+
+<div class="container">
+
+<div class="accordion">
+
+<!-- BPJS Kesehatan -->
+
+<div class="accordion-item">
+
+<button class="accordion-header">
+
+<div class="header-left">
+<div class="icon">❤️</div>
+BPJS Kesehatan
+</div>
+
+<div class="arrow">⌄</div>
+
+</button>
+
+<div class="accordion-content">
+<div class="content-inner">
+
+<div class="info-box">
+<h3>Informasi BPJS Kesehatan</h3>
+
+<p style="margin-bottom:15px; line-height:1.8;">
+BPJS Kesehatan merupakan program jaminan kesehatan nasional yang memberikan
+perlindungan kesehatan bagi peserta dan keluarganya. Layanan ini mencakup
+pendaftaran peserta, perubahan data, fasilitas kesehatan, hingga informasi kartu BPJS.
+</p>
+  
+<div class="bpjs-menu">
+
+    <div class="bpjs-item">
+        <button class="bpjs-btn">
+            Daftar Anggota Keluarga Inti (Pasangan dan Anak ke 1-3)
+            <span>▼</span>
+        </button>
+        <div class="bpjs-content">
+            <ul>
+		<li>Anggota keluarga yang bisa di daftarkan adalah pasangan dan maksimal 3 orang anak</li>
+		<li>Pasangan dan anak sudah terdaftar di KK</li>
+		<li>Siapkan KK dan kartu BPJS Kesehatan (jika ada)</li>
+		<li>isi link berikut:</li>
+	   </ul>
+		<a
+		  href="https://docs.google.com/forms/d/e/1FAIpQLSdmKcwhKoent2jLMKjOVqt_cUHGdOu1hx9ZrngO0luF_iKKfA/viewform"
+		  target="_blank"
+		  class="btn-form"
+		>
+		📝 Isi Form Pendaftaran
+		</a>
+        </div>
+    </div>
+
+    <div class="bpjs-item">
+        <button class="bpjs-btn">
+            Daftar Anggota Keluarga Tambahan (Anak ke-4 dst/Orangtua)
+            <span>▼</span>
+        </button>
+        <div class="bpjs-content">
+	<h3>Syarat Daftar Anggota Keluarga Tambahan</h3>
+
+<ul>
+<li>Status Paragonian (PKWT/TETAP)</li>
+<li>Anak ke 4, ke 5 dst menambah potongan gaji 1% per orang</li>
+<li>Siapkan foto KTP, KK, dan kartu BPJS Kesehatan</li>
+<li>Cetak dan isi surat pernyataan penambahan anggota keluarga lalu setelah itu di scan dan dijadikan PDF berikut:</li>
+
+
+		<a
+		  href="https://drive.google.com/file/d/1P_90K8fK0gw8OIJfdh5J7NqXcvHkkQKB/view"
+		  target="_blank"
+		  class="btn-form"
+		>
+		📝 Surat Pernyataan Potongan 1%
+		</a>
+		<li>isi link berikut:</li>
+	   	<a
+		  href="https://docs.google.com/forms/d/e/1FAIpQLSdmKcwhKoent2jLMKjOVqt_cUHGdOu1hx9ZrngO0luF_iKKfA/viewform"
+		  target="_blank"
+		  class="btn-form"
+		>
+		📝 Isi Form Pendaftaran
+		</a>
+	   </ul>
+
+    </div>
+    </div>
+
+    <div class="bpjs-item">
+        <button class="bpjs-btn">
+            Daftar Bayi Baru Lahir
+            <span>▼</span>
+        </button>
+        <div class="bpjs-content">
+            <h3>Cara Mendaftarkan Bayi Baru Lahir</h3>
+
+		<ul>
+		   <li>Anak yang bisa di daftarkan sampai anak ketiga</li>
+		   <li>Siapkan berkas berikut : asli & fotocopy kartu BPJS Kesehatan Ibu Kandung, asli & fotocopy surat keterangan lahir dari RS/Bidan/Klinik, asli & fotocopy kartu keluarga orangtua</li>
+	           <li>Datang ke kantor BPJS Kesehatan terdekat untuk proses pendaftaran (Maksimal 3 hari kerja setelah anak lahir)</li>
+		   <li>Setelah proses pendaftaran selesai, anda akan mendapatkan kartu seperti berikut</li>
+		<div class="image-box">
+			<h3>Kartu Identitas Peserta</h3>
+			<img src="img/kartuidentitaspeserta.png" alt="">
+		</div>
+	           <li>Anda akan menerima kartu dengan identias nama by nyonya A Untuk mengubahnya menjadi nama sesuai nama anak anda yang tertera di KK</li>
+		</ul>
+		<a
+		  href="https://docs.google.com/forms/d/e/1FAIpQLSdmKcwhKoent2jLMKjOVqt_cUHGdOu1hx9ZrngO0luF_iKKfA/viewform"
+		  target="_blank"
+		  class="btn-form"
+		>
+		📝 isi link berikut:		
+		</a>
+
+        </div>
+    </div>
+
+    <div class="bpjs-item">
+        <button class="bpjs-btn">
+            Revisi Identitas / Nama Bayi
+            <span>▼</span>
+        </button>
+        <div class="bpjs-content">
+            <h3>Cara Revisi Identitas yang tidak sesuai / Nama Bayi:</h3>
+
+		<ul>
+		  <li>Pastikan anak anda/anggota keluarga yang ingin direvisi sudah masuk KK</li>
+	 	  <li>Pastikan KK anda sudah update/sinkronisasi ke data disdukcapil</li>
+		</ul>
+		<a
+		  href="https://docs.google.com/forms/d/e/1FAIpQLSdmKcwhKoent2jLMKjOVqt_cUHGdOu1hx9ZrngO0luF_iKKfA/viewform"
+		  target="_blank"
+		  class="btn-form"
+		>
+		📝 isi link berikut:		
+		</a>
+        </div>
+    </div>
+
+    <div class="bpjs-item">
+        <button class="bpjs-btn">
+            Mobile JKN
+            <span>▼</span>
+        </button>
+        <div class="bpjs-content">
+            <h3>Mobile JKN</h3>
+
+<p style="margin-bottom:15px;">
+Mobile JKN adalah layanan untuk peserta yang berisi informasi data peserta dan keluarga,
+informasi pendaftaran dan perubahan data peserta, cek tagihan dan pembayaran iuran,
+serta sarana untuk menyampaikan pengaduan dan permintaan informasi.
+</p>
+
+<div class="info-box">
+
+<h3>Cara Download Aplikasi Mobile JKN</h3>
+
+<p>
+Buka Play Store kemudian ketik <b>Mobile JKN</b> pada kolom pencarian.
+Pilih aplikasi Mobile JKN lalu klik Install hingga proses selesai.
+</p>
+
+</div>
+
+<div class="info-box" style="margin-top:15px;">
+
+<h3>Panduan Registrasi Mobile JKN</h3>
+
+<ol style="padding-left:20px;">
+
+<li>Buka aplikasi Mobile JKN.</li>
+<li>Pilih menu Registrasi.</li>
+<li>Masukkan data yang diminta.</li>
+
+</ol>
+
+</div>
+
+<div class="info-box" style="margin-top:15px;">
+
+<h3>Keterangan Data Registrasi</h3>
+
+<ul>
+
+<li><b>No Kartu BPJS</b> : Nomor yang terdapat pada kartu BPJS.</li>
+<li><b>No KTP / NIK</b> : Sesuai KTP atau kartu BPJS.</li>
+<li><b>Tanggal Lahir</b> : Sesuai data peserta.</li>
+<li><b>Nama Ibu Kandung</b> : Sesuai data peserta.</li>
+<li><b>Password</b> : Buat password yang mudah diingat.</li>
+<li><b>Konfirmasi Password</b> : Isi password yang sama.</li>
+<li><b>No HP</b> : Nomor HP aktif.</li>
+<li><b>Email</b> : Email aktif untuk verifikasi.</li>
+
+</ul>
+
+</div>
+        </div>
+    </div>
+
+    <div class="bpjs-item">
+        <button class="bpjs-btn">
+            Pindah Faskes
+            <span>▼</span>
+        </button>
+        <div class="bpjs-content">
+            <h3>Cara pindah faskes via aplikasi Mobile JKN</h3>   
+	    <ul>
+		<li>Pertama. Buka aplikasi Mobile JKN. Kita akan mendapatkan halaman muka seperti gambar di bawah ini. Di halaman awal, kita bisa melihat beberapa menu utama, diantaranya menu tentang kepesertaan, tagihan, layanan serta menu informasi yang bersifat umum. Untuk layanan pemindahan faskes kita masuk ke bagian menu ubah data peserta pada tabel kanan atas.
+		</li>
+		<li>Kedua. Masuk ke bagian ubah data peserta. Kita akan menemukan beberapa informasi tentang keanggotaan kita sebagai pengguna layanan BPJS kesehatan. Diantaranya : No Kartu BPJS kesehatan. Nama layanan faskes 1 sebagai layanan pertama serta kelas perawatan. Untuk memindahkan faskes BPJS kesehatan, kita klik bagian informasi faskes. Sebagai contoh di informasi keanggotaan saya sebelumnya berada di klinik intan. Kita akan merubahnya ke faskes lainnya.</li>
+		<li>Ketiga. Muncul informasi ” Ubah Fasilitas Kesehatan Pertama ”. Kita masukkan Propinsi yang kita tuju. Selanjutnya masukkan nama Kota / Kabupaten. Lalu masukkan klinik pratama yang kita tuju. Setelah kita memilih nama klinik pratama yang kita tuju, maka langkah selanjutnya adalah kita diwajibkan menyimpan data kita dengan mensubmit data tersebut ke sistem. Saat proses penyimpanan data, sekali lagi, sistem akan mengirimkan kode verifikasi ke email anda </li>
+		<li>Buka email anda, dan anda akan mendapatkan email seperti di sebelah kiri. Dari email yang dikirimkan, kita bisa mengecek kembali, apakah data yang kita masukkan sudah sepenuhnya benar atau belum. Dari gambar disamping, data-data yang saya masukkan sudah benar. Saya ingin merubah faskes pertama saya yang sebelumnya di Klinik intan menjadi klinik Realino Yogyakarta. Setelah memastikan semuanya benar, maka langkah terakhir adalah memasukkan No Verifikasi Perubahan Data di aplikasi mobile JKN yang sedang kita buka</li>
+		<li>Apabila sudah berhasil, maka anda akan mendapat pemberitahuan seperti gambar yang tertera di sebelah kiri : Sampai dengan tahap ini, berarti anda sudah berhasil memindahkan faskes BPJS kesehatan lama anda ke faskes yang baru sesuai dengan pilihan anda. Untuk bisa menggunakannya, terhitung tanggal 1 bulan berikutnya, layanan faskes tingkat pertama baru bisa digunakan. </li>
+		
+	    </ul>
+        </div>
+    </div>
+
+    <div class="bpjs-item">
+        <button class="bpjs-btn">
+            Cek Nomor Kartu BPJS Kesehatan
+            <span>▼</span>
+        </button>
+        <div class="bpjs-content">
+	    <h3>Untuk cek nomor kartu BPJS anda dapat melihat di slip gaji masing-masing yang dikirimkan melalui email setiap bulannya.</h3>
+	    <li>Apabil nomor bpjs kesehatan tidak terdapat pada slip gaji maka bisa bertanya / menghubungi Umu Kulsum melalui email berikut : umu.kulsum@paracorpgroup.com</li>
+        </div>
+    </div>
+
+    <div class="bpjs-item">
+        <button class="bpjs-btn">
+            Download Kartu BPJS Kes
+            <span>▼</span>
+        </button>
+        <div class="bpjs-content">
+            	<li>Login ke aplikasi Mobile JKN</li>
+		<li>Di dalam aplikasi mobile jkn, pilih gambar icon dengan tulisan peserta di bagian atas kiri, kemudian tekan tombol Kartu Peserta</li>
+		<li>Maka akan terbuka tampilan seperti gambar di samping</li>
+		<li>Selanjutnya, di bawah sebelah kanan, pilih nama peserta yang ingin kartunya dicetak, kemudian tekan tombol bergambar amplop di sebelah kiri bawah. Tunggu prosesnya, Aplikasi mobile JKN akan mengirimkan gambar cetak kartu dalam format PDF ke email yang anda daftarkan di aplikasi tersebut.</li>
+		<li>Silahkan periksa email yang anda daftarkan. Masuk ke email yang anda daftarkan, lalu periksa pesan yang dikirim oleh BPJS yang berisi kartu BPJS yang siap dicetak. Silahkan download file kartu bpjs yang dikirim, lalu silahkan anda cetak.</li>
+        </div>
+    </div>
+
+</div>
+
+<div id="detailBPJS" class="info-box" style="display:none;"></div>
+
+</div> <!-- info-box -->
+</div> <!-- content-inner -->
+</div> <!-- accordion-content -->
+</div> <!-- accordion-item BPJS Kesehatan -->
+
+
+<!-- BPJS TK -->
+<div class="accordion-item">
+
+  <button class="accordion-header">
+    <div class="header-left">
+      <div class="icon">🛡️</div>
+      BPJS Ketenagakerjaan
+    </div>
+    <div class="arrow">⌄</div>
+  </button>
+
+  <div class="accordion-content">
+    <div class="content-inner">
+
+      <div class="info-box">
+        <h3>Informasi BPJS Ketenagakerjaan</h3>
+
+        <p>
+          BPJS Ketenagakerjaan merupakan program jaminan sosial tenaga kerja...
+        </p>
+
+        <ul>
+          <li>Jaminan Kecelakaan Kerja (JKK)</li>
+          <li>Jaminan Kematian (JKM)</li>
+          <li>Jaminan Hari Tua (JHT)</li>
+          <li>Jaminan Pensiun (JP)</li>
+        </ul>
+
+      </div>
+
+      <!-- DETAIL LANGSUNG HTML (TIDAK PAKAI JS) -->
+      <div class="info-box" style="margin-top:20px; border-top:2px solid #eee;">
+
+        <h3>Cara Penggunaan BPJS TK</h3>
+
+        <ul>
+          <li>Terjadi kecelakaan kerja di area kerja</li>
+          <li>Kecelakaan perjalanan ke tempat kerja</li>
+        </ul>
+
+      </div>
+
+      <div class="info-box" style="margin-top:20px;">
+
+        <h3>Link Penting</h3>
+
+        <ul>
+    <li onclick="showDetailTK('jmo')" class="click-item">
+	📱 BPJSTKU / JMO
+    </li>
+
+    <li onclick="showDetailTK('nomor')" class="click-item">
+	📄 Cek Nomor Kartu BPJSTK
+    </li>
+    <li onclick="showDetailTK('download')" class="click-item">
+	📥 Download Kartu
+    </li>
+    <li>Waktu Pencairan JHT</li>
+  </ul>
+
+  <div id="detailTK" class="info-box" style="display:none; margin-top:15px;"></div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- Admedika -->
+
+<div class="accordion-item">
+
+<button class="accordion-header">
+
+<div class="header-left">
+<div class="icon">💊</div>
+Admedika
+</div>
+
+<div class="arrow">⌄</div>
+
+</button>
+
+<div class="accordion-content">
+<div class="content-inner">
+
+<div class="info-box">
+<h3>Informasi Admedika</h3>
+
+<p style="margin-bottom:15px; line-height:1.8;">
+ADMEDIKA adalah salah satu benefit kesehatan yang diberikan kepada seluruh 
+personel aktif di PT Paragon Technology and Innovation sebagai bentuk kepedulian 
+Perusahaan terhadap kesehatan Paragonian.
+</p>
+
+<p style="margin-bottom:15px; line-height:1.8;">
+ADMEDIKA merupakan benefit kesehatan alternatif yang dapat digunakan oleh 
+Paragonian untuk pengobatan selain BPJS Kesehatan dan BPJS Ketenagakerjaan 
+(kecelakaan kerja).
+</p>
+
+
+<div class="info-box" style="margin-top:15px;">
+<h3>HOTLINE ADMEDIKA – PT PARAGON GROUP</h3>
+
+<p>
+☎ 021 - 29293789
+</p>
+</div>
+
+
+<h3 style="margin-top:20px;">
+Kartu Admedika digunakan saat:
+</h3>
+
+<ul>
+
+<li>
+Rawat Jalan
+</li>
+
+<li>
+Rawat Inap
+</li>
+
+<li>
+Rawat Gigi
+</li>
+
+<li>
+Maternity (Kehamilan/Melahirkan)
+</li>
+
+</ul>
+
+
+<h3 style="margin-top:20px;">
+Ketentuan Klaim
+</h3>
+
+<ul>
+
+<li>
+Dapat melakukan klaim selain kondisi yang termasuk dalam pengecualian polis.
+</li>
+
+<li>
+Kecelakaan lalu lintas dapat diklaim selain kondisi yang sudah termasuk dalam 
+ketentuan BPJS Ketenagakerjaan.
+</li>
+
+</ul>
+
+
+</div>
+  
+<!-- Informasi Lainnya -->
+
+<div class="info-box" style="margin-top:20px;">
+
+<h3>Informasi Lainnya</h3>
+
+
+<div class="sub-accordion">
+
+
+<button class="sub-header">
+Pengecualian Polis
+<span>⌄</span>
+</button>
+
+<div class="sub-content">
+
+<p>
+Admedika tidak akan membayar klaim sebagai akibat dari:
+</p>
+
+<ol>
+
+<li>
+Cedera yang timbul langsung atau tidak langsung oleh perang, diumumkan atau tidak diumumkan.
+</li>
+
+<li>
+Perawatan atau pelayanan yang tidak sesuai dengan diagnosa atau tidak dibutuhkan secara medis 
+atau tidak wajar secara medis atau tidak sesuai dengan standar praktik kedokteran yang baik.
+</li>
+
+<li>
+Bedah atau perawatan kosmetika yang berhubungan dengan kecantikan seperti bedah plastik, 
+kecuali bedah plastik rekonstruksi yang disebabkan oleh Kecelakaan yang dilakukan dalam kurun 
+waktu 30 (tiga puluh) hari sejak terjadinya Kecelakaan.
+</li>
+
+<li>
+Medical Check Up Rutin.
+</li>
+
+<li>
+Penyakit menular yang berdasarkan hukum harus diasingkan dan dikarantinakan.
+</li>
+
+<li>
+Cedera yang diakibatkan gangguan kejiwaan atau mencederai diri sendiri; atau keadaan 
+berhubungan dengan gangguan kejiwaan; perawatan istirahat atau perawatan kejiwaan.
+</li>
+
+<li>
+Kelainan-kelainan bawaan; perawatan yang berhubungan dengan perencanaan kelahiran, 
+sterilisasi, atau perawatan sehubungan dengan ketidaksuburan.
+</li>
+
+</ol>
+
+</div>
+
+
+</div>
+
+
+
+<div class="sub-accordion">
+
+
+<button class="sub-header">
+Pengajuan Klaim Reimbursement
+<span>⌄</span>
+</button>
+
+<div class="sub-content">
+
+<p>
+Ada 2 sistem prosedur klaim, yaitu :
+
+<br><br>
+
+<strong>System cashless / provider (langsung pakai kartu asuransi)</strong>
+
+<br><br>
+
+Peserta harus ke RS Rekanan Admedika dengan membawa kartu asuransi Admedika dan identitas diri (KTP). Apabila ada excess claim/kelebihan biaya maka akan diinformasikan oleh pihak asuransi untuk dibayar di tempat atau biaya ditalangi oleh asuransi.
+
+<br><br>
+
+<strong>System reimbursement</strong>
+
+<br><br>
+
+Dokumen yang harus dilengkapi untuk pengajuan klaim sistem reimbursement:
+
+<br><br>
+
+1. Melampirkan form medis yang diisi oleh dokter (termasuk mencantumkan nomor SIP, tanda tangan, dan cap dokter) atau mengisi form klaim:
+<br>
+<p>
+    Form Rawat Inap:
+    <br><br>
+    <a href="https://drive.google.com/file/d/1uidvzIFgPuGFt34nUEdyNbd7EjyLg2UE/view"
+       target="_blank"
+       class="btn-form">
+       📄 Klik Di Sini
+    </a>
+</p>
+
+<br><br>
+
+<p>
+    Form Rawat Jalan:
+    <br><br>
+    <a href="https://drive.google.com/file/d/1w7C7Uj5AjjLZ1CX9Owe2bMQJ3ChzeeNi/view"
+       target="_blank"
+       class="btn-form">
+       📄 Klik Di Sini
+    </a>
+</p>
+
+<br><br>
+2. Melampirkan kuitansi (bukan struk/nota/billing/invoice).
+
+<br><br>
+
+3. Perincian biaya pengobatan seperti biaya administrasi, jasa konsultasi dokter, obat-obatan, dan biaya lainnya.
+
+<br><br>
+
+4. Salinan perincian obat-obatan dan peralatan medis (copy resep).
+
+<br><br>
+
+5. Hasil laboratorium atau hasil pemeriksaan lainnya (jika ada). Pemeriksaan laboratorium harus berdasarkan rujukan dokter, sehingga surat rujukan wajib dilampirkan.
+
+<br><br>
+
+Apabila semua dokumen sudah lengkap, klaim dapat diajukan melalui aplikasi My Admedika.
+
+<br><br>
+
+6. Maksimal pengajuan e-Reimbursement adalah Rp2.000.000. Apabila pengajuan melebihi nominal tersebut, mohon isi link berikut (Klik Di Sini) dan kirimkan berkas asli ke HR (Umu Kulsum HR Jatake 4 / titip ke pos security J4).
+
+<br><br>
+
+ <p>
+    Cara pengajuan klaim reimbursement:
+    <br><br>
+    <a href="https://drive.google.com/file/d/1CFuTz-1KcJZS3J-59gvEuvUymGsAVyVJ/view"
+       target="_blank"
+       class="btn-form">
+       📄 Klik Di Sini
+    </a>
+</p>
+</div>
+
+</div>
+
+
+
+
+<div class="sub-accordion">
+
+
+<button class="sub-header">
+Pengajuan Klaim Melahirkan
+<span>⌄</span>
+</button>
+
+<div class="sub-content">
+
+<p>
+Informasi pengajuan klaim melahirkan dapat dilakukan sesuai ketentuan benefit Admedika.
+</p>
+
+</div>
+
+</div>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const items = document.querySelectorAll(".accordion-item");
+
+items.forEach(item => {
+  const btn = item.querySelector(".accordion-header");
+  const content = item.querySelector(".accordion-content");
+
+  btn.addEventListener("click", () => {
+
+    // tutup semua yang lain dulu (INI KUNCI)
+    items.forEach(i => {
+      if (i !== item) {
+        i.classList.remove("active");
+        i.querySelector(".accordion-content").style.maxHeight = null;
+      }
+    });
+
+    // toggle current
+    item.classList.toggle("active");
+
+    if (item.classList.contains("active")) {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } else {
+      content.style.maxHeight = null;
+    }
+
+  });
+});
+
+
+function showDetail(type){
+
+let box=document.getElementById("detailBPJS");
+
+box.style.display="block";
+
+if(type==="inti"){
+
+box.innerHTML=`
+
+<h3>Syarat Daftar Anggota Keluarga</h3>
+
+<ul>
+<li>Anggota keluarga yang bisa di daftarkan adalah pasangan dan maksimal 3 orang anak</li>
+<li>Pasangan dan anak sudah terdaftar di KK</li>
+<li>Siapkan KK dan kartu BPJS Kesehatan (jika ada)</li>
+</ul>
+
+<br>
+
+<a
+href="https://docs.google.com/forms/d/e/1FAIpQLSdmKcwhKoent2jLMKjOVqt_cUHGdOu1hx9ZrngO0luF_iKKfA/viewform"
+target="_blank"
+class="btn-form"
+>
+📝 Isi Form Pendaftaran
+</a>
+
+`;
+
+}
+
+else if(type==="tambahan"){
+
+box.innerHTML=`
+
+<h3>Syarat Daftar Anggota Keluarga Tambahan</h3>
+
+<ul>
+<li>Status Paragonian (PKWT/TETAP)</li>
+<li>Anak ke 4, ke 5 dst menambah potongan gaji 1% per orang</li>
+<li>Siapkan foto KTP, KK, dan kartu BPJS Kesehatan</li>
+</ul>
+
+`;
+
+}
+
+
+else if(type==="bayi"){
+
+box.innerHTML=`
+
+<h3>Cara Mendaftarkan Bayi Baru Lahir</h3>
+
+<ul>
+<li>Anak yang bisa di daftarkan sampai anak ketiga</li>
+<li>Siapkan berkas berikut : asli & fotocopy kartu BPJS Kesehatan Ibu Kandung, asli & fotocopy surat keterangan lahir dari RS/Bidan/Klinik, asli & fotocopy kartu keluarga orangtua</li>
+<li>Datang ke kantor BPJS Kesehatan terdekat untuk proses pendaftaran (Maksimal 3 hari kerja setelah anak lahir)</li>
+<li>Setelah proses pendaftaran selesai, anda akan mendapatkan kartu seperti berikut</li>
+<li>Anda akan menerima kartu dengan identias nama by nyonya A Untuk mengubahnya menjadi nama sesuai nama anak anda yang tertera di KK, silahkan isi link berikut ini:</li>
+</ul>
+
+`;
+
+}
+
+
+else if(type==="revisi"){
+
+box.innerHTML=`
+
+<h3>Cara Revisi Identitas / Nama Bayi</h3>
+
+<ul>
+<li>Pastikan sudah masuk KK</li>
+<li>Pastikan KK sudah update Dukcapil</li>
+</ul>
+
+`;
+
+}
+
+else if(type==="mobile"){
+
+box.innerHTML=`
+
+<h3>Mobile JKN</h3>
+
+<p style="margin-bottom:15px;">
+Mobile JKN adalah layanan untuk peserta yang berisi informasi data peserta dan keluarga,
+informasi pendaftaran dan perubahan data peserta, cek tagihan dan pembayaran iuran,
+serta sarana untuk menyampaikan pengaduan dan permintaan informasi.
+</p>
+
+<div class="info-box">
+
+<h3>Cara Download Aplikasi Mobile JKN</h3>
+
+<p>
+Buka Play Store kemudian ketik <b>Mobile JKN</b> pada kolom pencarian.
+Pilih aplikasi Mobile JKN lalu klik Install hingga proses selesai.
+</p>
+
+</div>
+
+<div class="info-box" style="margin-top:15px;">
+
+<h3>Panduan Registrasi Mobile JKN</h3>
+
+<ol style="padding-left:20px;">
+
+<li>Buka aplikasi Mobile JKN.</li>
+<li>Pilih menu Registrasi.</li>
+<li>Masukkan data yang diminta.</li>
+
+</ol>
+
+</div>
+
+<div class="info-box" style="margin-top:15px;">
+
+<h3>Keterangan Data Registrasi</h3>
+
+<ul>
+
+<li><b>No Kartu BPJS</b> : Nomor yang terdapat pada kartu BPJS.</li>
+<li><b>No KTP / NIK</b> : Sesuai KTP atau kartu BPJS.</li>
+<li><b>Tanggal Lahir</b> : Sesuai data peserta.</li>
+<li><b>Nama Ibu Kandung</b> : Sesuai data peserta.</li>
+<li><b>Password</b> : Buat password yang mudah diingat.</li>
+<li><b>Konfirmasi Password</b> : Isi password yang sama.</li>
+<li><b>No HP</b> : Nomor HP aktif.</li>
+<li><b>Email</b> : Email aktif untuk verifikasi.</li>
+
+</ul>
+
+</div>
+
+`;
+
+}
+
+else if(type==="faskes"){
+
+box.innerHTML=`
+
+<h3>Cara Pindah Faskes via Mobile JKN</h3>
+
+<div class="info-box">
+
+<h3>Langkah 1 - Buka Aplikasi Mobile JKN</h3>
+
+<p>
+Buka aplikasi Mobile JKN kemudian login menggunakan akun yang sudah terdaftar.
+Pada halaman utama pilih menu <b>Ubah Data Peserta</b>.
+</p>
+
+</div>
+
+<div class="info-box" style="margin-top:15px;">
+
+<h3>Langkah 2 - Pilih Informasi Faskes</h3>
+
+<p>
+Di halaman Ubah Data Peserta akan muncul informasi:
+</p>
+
+<ul>
+<li>Nomor Kartu BPJS Kesehatan</li>
+<li>Fasilitas Kesehatan Tingkat Pertama (FKTP)</li>
+<li>Kelas Perawatan</li>
+</ul>
+
+<p>
+Klik bagian <b>Informasi Faskes</b> untuk melakukan perubahan fasilitas kesehatan.
+</p>
+
+</div>
+
+<div class="info-box" style="margin-top:15px;">
+
+<h3>Langkah 3 - Pilih Faskes Baru</h3>
+
+<p>
+Masukkan data berikut:
+</p>
+
+<ul>
+<li>Provinsi tujuan</li>
+<li>Kota / Kabupaten</li>
+<li>Fasilitas Kesehatan Tingkat Pertama (FKTP) yang dituju</li>
+</ul>
+
+<p>
+Setelah memilih faskes tujuan, klik <b>Simpan</b>.
+</p>
+
+</div>
+
+<div class="info-box" style="margin-top:15px;">
+
+<h3>Langkah 4 - Verifikasi Perubahan Data</h3>
+
+<p>
+Sistem akan mengirimkan kode verifikasi ke email yang terdaftar.
+Buka email Anda dan pastikan seluruh data perubahan sudah sesuai.
+</p>
+
+<p>
+Masukkan <b>Nomor Verifikasi Perubahan Data</b> pada aplikasi Mobile JKN untuk menyelesaikan proses perubahan.
+</p>
+
+</div>
+
+<div class="info-box" style="margin-top:15px;">
+
+<h3>Perubahan Berhasil</h3>
+
+<p>
+Apabila proses berhasil, Anda akan mendapatkan notifikasi bahwa perubahan fasilitas kesehatan telah berhasil dilakukan.
+</p>
+
+<p>
+Fasilitas kesehatan yang baru dapat digunakan mulai tanggal <b>1 pada bulan berikutnya</b>.
+</p>
+
+</div>
+
+`;
+
+}
+
+else if(type==="nomor"){
+
+box.innerHTML=`
+
+<h3>Cek Nomor Kartu BPJS Kesehatan</h3>
+
+<div class="info-box">
+
+<p>
+Nomor kartu BPJS Kesehatan dapat dilihat pada slip gaji yang dikirimkan melalui email setiap bulan.
+</p>
+
+</div>
+
+<div class="info-box" style="margin-top:15px;">
+
+<h3>Jika Nomor BPJS Tidak Tercantum</h3>
+
+<p>
+Apabila nomor BPJS Kesehatan tidak terdapat pada slip gaji, silakan menghubungi:
+</p>
+
+<p style="margin-top:10px;">
+<b>Umu Kulsum</b><br>
+📧 umu.kulsum@paracorpgroup.com
+</p>
+
+</div>
+
+`;
+
+}
+
+else if(type==="download"){
+
+box.innerHTML=`
+
+<h3>Download Kartu BPJS Kesehatan</h3>
+
+<div class="info-box">
+
+<h3>1. Login ke Aplikasi Mobile JKN</h3>
+
+<p>
+Buka aplikasi Mobile JKN dan login menggunakan akun yang sudah terdaftar.
+</p>
+
+</div>
+
+<div class="info-box" style="margin-top:15px;">
+
+<h3>2. Pilih Menu Peserta</h3>
+
+<p>
+Pada halaman utama aplikasi Mobile JKN, pilih menu <b>Peserta</b> yang berada di bagian kiri atas.
+</p>
+
+<p>
+Kemudian tekan tombol <b>Kartu Peserta</b>.
+</p>
+
+</div>
+
+<div class="info-box" style="margin-top:15px;">
+
+<h3>3. Pilih Peserta</h3>
+
+<p>
+Pilih nama peserta yang kartunya ingin dicetak.
+</p>
+
+<p>
+Selanjutnya tekan tombol <b>ikon amplop</b> yang berada di bagian kiri bawah layar.
+</p>
+
+</div>
+
+<div class="info-box" style="margin-top:15px;">
+
+<h3>4. Tunggu Pengiriman Email</h3>
+
+<p>
+Aplikasi Mobile JKN akan mengirimkan kartu peserta dalam format PDF ke email yang terdaftar pada akun Mobile JKN.
+</p>
+
+</div>
+
+<div class="info-box" style="margin-top:15px;">
+
+<h3>5. Download dan Cetak Kartu</h3>
+
+<p>
+Buka email yang terdaftar pada aplikasi Mobile JKN.
+</p>
+
+<p>
+Cari email dari BPJS Kesehatan yang berisi kartu peserta, kemudian download file PDF yang dikirim dan cetak sesuai kebutuhan.
+</p>
+
+</div>
+
+`;
+
+}
+}
+
+function showDetailTK(type){
+
+let box=document.getElementById("detailTK");
+
+box.style.display="block";
+
+if(type==="jmo"){
+
+box.innerHTML=`
+
+<h3>📱 BPJSTKU / JMO</h3>
+
+<p style="margin-bottom:15px; line-height:1.8;">
+JMO (Jamsostek Mobile) adalah aplikasi BPJS Ketenagakerjaan 
+untuk melihat saldo JHT, data peserta, kartu digital, dan pengajuan klaim.
+</p>
+
+<div class="info-box">
+
+<h3>Cara Download JMO</h3>
+
+<p>
+Download aplikasi <b>JMO (Jamsostek Mobile)</b> melalui Play Store atau App Store.
+</p>
+
+</div>
+
+
+<div class="info-box" style="margin-top:15px;">
+
+<h3>Cara Registrasi Akun</h3>
+
+<ol style="padding-left:20px;">
+
+<li>Buka aplikasi JMO</li>
+<li>Pilih Pendaftaran Pengguna Baru</li>
+<li>Pilih Daftar Akun PU</li>
+<li>Masukkan NIK e-KTP</li>
+<li>Masukkan tanggal lahir</li>
+<li>Masukkan nomor HP aktif</li>
+<li>Masukkan nomor KPJ BPJS Ketenagakerjaan</li>
+<li>Lakukan verifikasi email</li>
+<li>Buat password</li>
+
+</ol>
+
+</div>
+
+
+<div class="info-box" style="margin-top:15px;">
+
+<h3>Fitur JMO</h3>
+
+<ul>
+
+<li>Cek saldo JHT</li>
+<li>Lihat kartu digital BPJS TK</li>
+<li>Cek data peserta</li>
+<li>Pengajuan klaim JHT online</li>
+
+</ul>
+
+</div>
+
+`;
+
+}
+
+else if(type==="nomor"){
+
+box.innerHTML=`
+
+<h3>📄 Cek Nomor Kartu BPJSTK</h3>
+
+<div class="info-box">
+
+<p>
+Untuk cek nomor kartu BPJS Ketenagakerjaan Anda dapat melihat pada slip gaji masing-masing yang dikirimkan melalui email setiap bulannya.
+</p>
+
+</div>
+
+<div class="info-box" style="margin-top:15px;">
+
+<h3>Jika Nomor BPJSTK Tidak Tercantum</h3>
+
+<p>
+Apabila nomor BPJS Ketenagakerjaan tidak terdapat pada slip gaji, silakan menghubungi:
+</p>
+
+<p style="margin-top:10px;">
+<b>Suci Rosita</b><br>
+📧 suci.rosita@pti-cosmetics.com
+</p>
+
+</div>
+
+`;
+
+}
+
+else if(type==="download"){
+
+box.innerHTML=`
+
+<h3>📥 Download Kartu BPJS Ketenagakerjaan</h3>
+
+<div class="info-box">
+
+<h3>1. Login ke Aplikasi JMO</h3>
+
+<p>
+Buka aplikasi <b>JMO (Jamsostek Mobile)</b> di smartphone Anda, kemudian login menggunakan akun yang telah terdaftar.
+</p>
+
+<p>
+Setelah berhasil login, pilih menu <b>Profil Saya</b>.
+</p>
+
+</div>
+
+<div class="info-box" style="margin-top:15px;">
+
+<h3>2. Pilih Menu Kartu Digital</h3>
+
+<p>
+Pada halaman <b>Profil Saya</b>, pilih menu <b>Kartu Digital Anda</b>.
+</p>
+
+</div>
+
+<div class="info-box" style="margin-top:15px;">
+
+<h3>3. Download Kartu Kepesertaan</h3>
+
+<p>
+Pilih kartu kepesertaan yang ingin di-download.
+</p>
+
+<p>
+Klik untuk memperbesar tampilan kartu, kemudian simpan kartu tersebut sesuai kebutuhan.
+</p>
+
+</div>
+
+`;
+
+}
+
+}
+
+document.querySelectorAll(".sub-header").forEach(button => {
+
+    button.addEventListener("click", function(){
+
+        let parent = this.parentElement;
+
+        parent.classList.toggle("active");
+
+    });
+
+});
+
+</script>
+
+<script>
+
+/* javascript lama */
+
+document.querySelectorAll(".bpjs-btn").forEach(btn => {
+    btn.addEventListener("click", function(){
+
+        const content = this.nextElementSibling;
+
+        document.querySelectorAll(".bpjs-content").forEach(item => {
+            if(item !== content){
+                item.style.display = "none";
+            }
+        });
+
+        content.style.display =
+            content.style.display === "block"
+            ? "none"
+            : "block";
+    });
+});
+
+</script>
+
+</script>
+
+
+</body>
+</html>
